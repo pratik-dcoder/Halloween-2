@@ -3,301 +3,390 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Multiplayer Ludo Game</title>
+    <title>Gym Membership Fee Tracker</title>
     <style>
         body {
-            font-family: 'Comic Sans MS', cursive, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background-color: #f5f5f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
             margin: 0;
             padding: 20px;
-        }
-        
-        .game-container {
-            position: relative;
-            width: 600px;
-            height: 600px;
-            margin: 20px auto;
-            background-image: url('ludo-board.png'); /* Add a background image for the board */
-            background-size: cover;
-            background-position: center;
-        }
-        
-        .board {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .center-square {
-            position: absolute;
-            width: 40%;
-            height: 40%;
-            background-color: #ffeb3b;
-            top: 30%;
-            left: 30%;
-            border-radius: 10px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 24px;
-            font-weight: bold;
+            background-color: #f5f5f5;
             color: #333;
-            animation: pulse 2s infinite;
         }
-        
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.1);
-            }
-            100% {
-                transform: scale(1);
-            }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
-        
-        .home {
-            position: absolute;
-            width: 20%;
-            height: 20%;
-            border-radius: 50%;
-            border: 2px solid #333;
-            opacity: 0.9;
+        h1, h2 {
+            color: #2c3e50;
         }
-        
-        .home-red {
-            top: 5%;
-            left: 5%;
-            background-color: #f44336;
-        }
-        
-        .home-green {
-            top: 5%;
-            right: 5%;
-            background-color: #4caf50;
-        }
-        
-        .home-yellow {
-            bottom: 5%;
-            left: 5%;
-            background-color: #ffeb3b;
-        }
-        
-        .home-blue {
-            bottom: 5%;
-            right: 5%;
-            background-color: #2196f3;
-        }
-        
-        .piece {
-            position: absolute;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-            z-index: 10;
-            border: 3px solid #fff;
-        }
-        
-        .piece:hover {
-            transform: scale(1.2);
-        }
-        
-        .piece.red {
-            background-color: #f44336;
-            border: 3px solid #b71c1c;
-        }
-        
-        .piece.green {
-            background-color: #4caf50;
-            border: 3px solid #1b5e20;
-        }
-        
-        .piece.yellow {
-            background-color: #ffeb3b;
-            border: 3px solid #f57f17;
-        }
-        
-        .piece.blue {
-            background-color: #2196f3;
-            border: 3px solid #0d47a1;
-        }
-        
-        .dice-container {
-            margin: 20px;
+        .header {
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
             align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
         }
-        
-        .dice {
-            width: 60px;
-            height: 60px;
-            background-color: white;
-            border-radius: 10px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 24px;
-            font-weight: bold;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            margin-bottom: 10px;
-            animation: bounce 1s infinite;
-        }
-        
-        @keyframes bounce {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-10px);
-            }
-        }
-        
-        button {
-            padding: 10px 20px;
-            background-color: #4caf50;
+        .btn {
+            background-color: #3498db;
             color: white;
             border: none;
-            border-radius: 5px;
+            padding: 10px 15px;
+            border-radius: 4px;
             cursor: pointer;
-            font-size: 16px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            font-size: 14px;
         }
-        
-        button:hover {
-            background-color: #388e3c;
+        .btn:hover {
+            background-color: #2980b9;
         }
-        
-        .player-info {
-            display: flex;
-            justify-content: space-around;
+        .btn-danger {
+            background-color: #e74c3c;
+        }
+        .btn-danger:hover {
+            background-color: #c0392b;
+        }
+        .btn-success {
+            background-color: #2ecc71;
+        }
+        .btn-success:hover {
+            background-color: #27ae60;
+        }
+        table {
             width: 100%;
-            margin-bottom: 20px;
-            animation: slideIn 1s forwards;
+            border-collapse: collapse;
+            margin: 20px 0;
         }
-        
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
         }
-        
-        .player {
-            padding: 10px 20px;
-            border-radius: 5px;
+        th {
+            background-color: #f8f9fa;
             font-weight: bold;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        
-        .active {
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        tr:hover {
+            background-color: #f5f5f5;
         }
-        
-        .message-container {
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #fff;
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
             border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close:hover {
+            color: black;
+        }
+        .status-paid {
+            color: #2ecc71;
+            font-weight: bold;
+        }
+        .status-due {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: #f1f1f1;
+            border: none;
+            margin-right: 5px;
+            border-radius: 5px 5px 0 0;
+        }
+        .tab.active {
+            background-color: #3498db;
+            color: white;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .search-container {
+            margin-bottom: 20px;
+        }
+        .badge {
+            display: inline-block;
+            padding: 3px 7px;
+            font-size: 12px;
+            font-weight: bold;
+            line-height: 1;
+            color: #fff;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            background-color: #777;
+            border-radius: 10px;
+        }
+        .badge-danger {
+            background-color: #e74c3c;
+        }
+        .badge-success {
+            background-color: #2ecc71;
         }
     </style>
 </head>
 <body>
-    <h1>Multiplayer Ludo Game</h1>
-    
-    <div class="player-info">
-        <div class="player red active" id="player1">Player 1 (Red)</div>
-        <div class="player green" id="player2">Player 2 (Green)</div>
-        <div class="player yellow" id="player3">Player 3 (Yellow)</div>
-        <div class="player blue" id="player4">Player 4 (Blue)</div>
-    </div>
-    
-    <div class="game-container">
-        <div class="board">
-            <!-- Center of the board -->
-            <div class="center-square">LUDO</div>
+    <div class="container">
+        <div class="header">
+            <h1>Gym Membership Fee Tracker</h1>
+            <button id="addMemberBtn" class="btn">Add New Member</button>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="openTab(event, 'members')">All Members</button>
+            <button class="tab" onclick="openTab(event, 'duePayments')">Due Payments</button>
+            <button class="tab" onclick="openTab(event, 'reminders')">Reminders</button>
+        </div>
+
+        <div id="members" class="tab-content active">
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Search by name or phone..." onkeyup="searchMembers()">
+            </div>
+            <table id="membersTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Join Date</th>
+                        <th>Last Payment</th>
+                        <th>Next Due</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>John Doe</td>
+                        <td>9876543210</td>
+                        <td>2023-01-15</td>
+                        <td>2023-05-01</td>
+                        <td>2023-06-01</td>
+                        <td class="status-paid">Paid</td>
+                        <td>
+                            <button class="btn btn-success">Record Payment</button>
+                            <button class="btn">Edit</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Jane Smith</td>
+                        <td>9876543211</td>
+                        <td>2023-02-10</td>
+                        <td>2023-04-01</td>
+                        <td>2023-05-01</td>
+                        <td class="status-due">Due</td>
+                        <td>
+                            <button class="btn btn-success">Record Payment</button>
+                            <button class="btn">Edit</button>
+                        </td>
+                    </tr>
+                    <!-- More rows will be added dynamically -->
+                </tbody>
+            </table>
+        </div>
+
+        <div id="duePayments" class="tab-content">
+            <h2>Members with Due Payments</h2>
+            <table id="duePaymentsTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Last Payment</th>
+                        <th>Due Since</th>
+                        <th>Amount Due</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2</td>
+                        <td>Jane Smith</td>
+                        <td>9876543211</td>
+                        <td>2023-04-01</td>
+                        <td>2023-05-01 <span class="badge badge-danger">1 month</span></td>
+                        <td>₹1000</td>
+                        <td>
+                            <button class="btn btn-success">Record Payment</button>
+                            <button class="btn">Send Reminder</button>
+                        </td>
+                    </tr>
+                    <!-- More due payment rows will be added dynamically -->
+                </tbody>
+            </table>
+        </div>
+
+        <div id="reminders" class="tab-content">
+            <h2>Send Reminders</h2>
+            <div class="form-group">
+                <label for="reminderType">Reminder Type:</label>
+                <select id="reminderType">
+                    <option value="due">Due Payment Reminder</option>
+                    <option value="upcoming">Upcoming Payment Reminder</option>
+                    <option value="custom">Custom Message</option>
+                </select>
+            </div>
+            <div class="form-group" id="customMessageGroup" style="display:none;">
+                <label for="customMessage">Custom Message:</label>
+                <textarea id="customMessage" rows="4" style="width:100%;"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="sendMethod">Send Method:</label>
+                <select id="sendMethod">
+                    <option value="sms">SMS</option>
+                    <option value="whatsapp">WhatsApp</option>
+                    <option value="email">Email</option>
+                </select>
+            </div>
+            <button class="btn btn-success">Send Reminders to All Due Members</button>
             
-            <!-- Player homes -->
-            <div class="home home-red"></div>
-            <div class="home home-green"></div>
-            <div class="home home-yellow"></div>
-            <div class="home home-blue"></div>
-            
-            <!-- Game paths would be drawn here -->
-            
-            <!-- Game pieces -->
-            <div class="piece red" id="red1" style="top: 15%; left: 15%;"></div>
-            <div class="piece red" id="red2" style="top: 15%; left: 25%;"></div>
-            <div class="piece red" id="red3" style="top: 25%; left: 15%;"></div>
-            <div class="piece red" id="red4" style="top: 25%; left: 25%;"></div>
-            
-            <div class="piece green" id="green1" style="top: 15%; right: 15%;"></div>
-            <div class="piece green" id="green2" style="top: 15%; right: 25%;"></div>
-            <div class="piece green" id="green3" style="top: 25%; right: 15%;"></div>
-            <div class="piece green" id="green4" style="top: 25%; right: 25%;"></div>
-            
-            <div class="piece yellow" id="yellow1" style="bottom: 15%; left: 15%;"></div>
-            <div class="piece yellow" id="yellow2" style="bottom: 15%; left: 25%;"></div>
-            <div class="piece yellow" id="yellow3" style="bottom: 25%; left: 15%;"></div>
-            <div class="piece yellow" id="yellow4" style="bottom: 25%; left: 25%;"></div>
-            
-            <div class="piece blue" id="blue1" style="bottom: 15%; right: 15%;"></div>
-            <div class="piece blue" id="blue2" style="bottom: 15%; right: 25%;"></div>
-            <div class="piece blue" id="blue3" style="bottom: 25%; right: 15%;"></div>
-            <div class="piece blue" id="blue4" style="bottom: 25%; right: 25%;"></div>
+            <h3 style="margin-top:30px;">Reminder History</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Member</th>
+                        <th>Type</th>
+                        <th>Method</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2023-05-05 10:30</td>
+                        <td>Jane Smith</td>
+                        <td>Due Payment</td>
+                        <td>SMS</td>
+                        <td><span class="badge badge-success">Sent</span></td>
+                    </tr>
+                    <!-- More reminder history rows will be added dynamically -->
+                </tbody>
+            </table>
         </div>
     </div>
-    
-    <div class="dice-container">
-        <div class="dice" id="dice">1</div>
-        <button id="roll-btn">Roll Dice</button>
+
+    <!-- Add Member Modal -->
+    <div id="addMemberModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Add New Member</h2>
+            <form id="memberForm">
+                <div class="form-group">
+                    <label for="memberName">Full Name:</label>
+                    <input type="text" id="memberName" required>
+                </div>
+                <div class="form-group">
+                    <label for="memberPhone">Phone Number:</label>
+                    <input type="tel" id="memberPhone" required>
+                </div>
+                <div class="form-group">
+                    <label for="memberEmail">Email (optional):</label>
+                    <input type="email" id="memberEmail">
+                </div>
+                <div class="form-group">
+                    <label for="joinDate">Join Date:</label>
+                    <input type="date" id="joinDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="monthlyFee">Monthly Fee:</label>
+                    <input type="number" id="monthlyFee" required>
+                </div>
+                <div class="form-group">
+                    <label for="paymentDate">Initial Payment Date:</label>
+                    <input type="date" id="paymentDate" required>
+                </div>
+                <button type="submit" class="btn">Save Member</button>
+            </form>
+        </div>
     </div>
-    
-    <div class="message-container" id="game-message">Waiting for player 1 to roll...</div>
-    
-    <audio id="dice-sound">
-        <source src="dice-roll.mp3" type="audio/mpeg">
-    </audio>
-    
-    <audio id="piece-move-sound">
-        <source src="piece-move.mp3" type="audio/mpeg">
-    </audio>
-    
+
+    <!-- Record Payment Modal -->
+    <div id="recordPaymentModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Record Payment</h2>
+            <form id="paymentForm">
+                <div class="form-group">
+                    <label for="paymentMember">Member:</label>
+                    <input type="text" id="paymentMember" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="paymentAmount">Amount:</label>
+                    <input type="number" id="paymentAmount" required>
+                </div>
+                <div class="form-group">
+                    <label for="paymentDate">Payment Date:</label>
+                    <input type="date" id="paymentDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="paymentMethod">Payment Method:</label>
+                    <select id="paymentMethod" required>
+                        <option value="cash">Cash</option>
+                        <option value="upi">UPI</option>
+                        <option value="bank">Bank Transfer</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="paymentNotes">Notes (optional):</label>
+                    <input type="text" id="paymentNotes">
+                </div>
+                <button type="submit" class="btn">Record Payment</button>
+            </form>
+        </div>
+    </div>
+
     <script>
-        const diceSound = document.getElementById('dice-sound');
-        const pieceMoveSound = document.getElementById('piece-move-sound');
-        
-        document.getElementById('roll-btn').addEventListener('click', function() {
-            diceSound.play();
-            const diceValue = Math.floor(Math.random() * 6) + 1;
-            document.getElementById('dice').textContent = diceValue;
-            document.getElementById('game-message').textContent = `You rolled a ${diceValue}!`;
-            
-            // In a real game, you would handle piece movement here
-            // and communicate with other players via WebSockets
-        });
-        
-        // Piece click handlers
-        document.querySelectorAll('.piece').forEach(piece => {
-            piece.addEventListener('click', function() {
-                pieceMoveSound.play();
-                // In a real game, this would move the piece if it's the player's turn
-                console.log(`Clicked ${this.id}`);
-            });
-        });
-    </script>
-</body>
-</html>
+        // Tab functionality
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks
