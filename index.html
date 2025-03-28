@@ -3,402 +3,343 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spooky Haven - Halloween Shop</title>
+    <title>Monthly Fee Collection System</title>
     <style>
-        /* Halloween Color Theme */
-        :root {
-            --orange: #ff6d00;
-            --dark-orange: #e65100;
-            --black: #1a0000;
-            --purple: #6a1b9a;
-            --green: #2e7d32;
-            --red: #c62828;
+        * {
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
         }
         
         body {
-            font-family: 'Creepster', cursive, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: var(--black);
-            color: white;
-            background-image: url('https://images.unsplash.com/photo-1508847154043-be5407fcaa5a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
-            background-size: cover;
-            background-attachment: fixed;
-        }
-        
-        @font-face {
-            font-family: 'Creepster';
-            src: url('https://fonts.googleapis.com/css2?family=Creepster&display=swap');
-        }
-        
-        header {
-            background-color: rgba(26, 0, 0, 0.8);
-            padding: 20px;
-            text-align: center;
-            border-bottom: 3px solid var(--orange);
-        }
-        
-        .logo {
-            font-size: 3rem;
-            color: var(--orange);
-            text-shadow: 3px 3px 0 var(--purple), 5px 5px 0 rgba(0,0,0,0.5);
-            margin: 0;
-        }
-        
-        .tagline {
-            color: var(--green);
-            font-style: italic;
-            margin-top: 5px;
-        }
-        
-        nav {
-            background-color: rgba(106, 27, 154, 0.8);
-            padding: 15px;
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin: 0 15px;
-            font-size: 1.2rem;
-            padding: 5px 10px;
-            border-radius: 5px;
-            transition: all 0.3s;
-        }
-        
-        nav a:hover {
-            background-color: var(--orange);
-            transform: scale(1.1);
+            background-color: #f5f5f5;
+            color: #333;
         }
         
         .container {
             max-width: 1200px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: rgba(26, 0, 0, 0.7);
-            border-radius: 10px;
-            box-shadow: 0 0 20px var(--purple);
-        }
-        
-        .banner {
-            width: 100%;
-            height: 300px;
-            background-image: url('https://images.unsplash.com/photo-1505635552518-3448e113a997?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
-            background-size: cover;
-            background-position: center;
-            border-radius: 10px;
-            margin-bottom: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-        
-        .banner::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(0,0,0,0.4);
-            border-radius: 10px;
-        }
-        
-        .banner-text {
-            position: relative;
-            z-index: 1;
-            text-align: center;
-            color: white;
-        }
-        
-        .banner-text h2 {
-            font-size: 3rem;
-            color: var(--orange);
-            text-shadow: 2px 2px 0 var(--black);
-            margin-bottom: 10px;
-        }
-        
-        .banner-text p {
-            font-size: 1.5rem;
-            max-width: 80%;
             margin: 0 auto;
+            padding: 20px;
         }
         
-        .section-title {
-            color: var(--orange);
-            border-bottom: 2px solid var(--purple);
-            padding-bottom: 10px;
-            margin-top: 40px;
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            margin-bottom: 30px;
+            border-radius: 5px;
         }
         
-        .products {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        h1 {
+            margin: 0;
+        }
+        
+        .dashboard {
+            display: flex;
+            flex-wrap: wrap;
             gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 20px;
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .card h2 {
+            margin-top: 0;
+            color: #2c3e50;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        
+        .stat {
+            font-size: 24px;
+            font-weight: bold;
+            color: #3498db;
+        }
+        
+        .form-container {
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #2980b9;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
             margin-top: 20px;
         }
         
-        .product-card {
-            background-color: rgba(42, 0, 0, 0.8);
-            border-radius: 10px;
-            overflow: hidden;
-            transition: transform 0.3s;
-            border: 1px solid var(--purple);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
         }
         
-        .product-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 25px var(--purple);
-        }
-        
-        .product-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-bottom: 2px solid var(--orange);
-        }
-        
-        .product-info {
-            padding: 15px;
-        }
-        
-        .product-title {
-            font-size: 1.2rem;
-            margin: 0 0 10px;
-            color: var(--orange);
-        }
-        
-        .product-price {
-            font-size: 1.3rem;
-            color: var(--green);
-            margin: 10px 0;
-        }
-        
-        .product-description {
-            font-size: 0.9rem;
-            margin-bottom: 15px;
-            color: #ccc;
-        }
-        
-        .btn {
-            display: inline-block;
-            background-color: var(--orange);
+        th {
+            background-color: #2c3e50;
             color: white;
-            padding: 8px 15px;
-            border-radius: 5px;
-            text-decoration: none;
+        }
+        
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .status-paid {
+            color: #27ae60;
             font-weight: bold;
-            transition: all 0.3s;
-            border: none;
-            cursor: pointer;
-            font-family: inherit;
         }
         
-        .btn:hover {
-            background-color: var(--dark-orange);
-            transform: scale(1.05);
-        }
-        
-        .btn-outline {
-            background-color: transparent;
-            border: 2px solid var(--orange);
-            color: var(--orange);
-        }
-        
-        .btn-outline:hover {
-            background-color: var(--orange);
-            color: white;
+        .status-pending {
+            color: #e74c3c;
+            font-weight: bold;
         }
         
         footer {
-            background-color: rgba(26, 0, 0, 0.9);
-            color: white;
             text-align: center;
+            margin-top: 30px;
             padding: 20px;
-            margin-top: 40px;
-            border-top: 3px solid var(--purple);
-        }
-        
-        .social-links {
-            margin: 15px 0;
-        }
-        
-        .social-links a {
-            color: white;
-            margin: 0 10px;
-            font-size: 1.5rem;
-            transition: color 0.3s;
-        }
-        
-        .social-links a:hover {
-            color: var(--orange);
+            color: #7f8c8d;
+            font-size: 14px;
         }
         
         @media (max-width: 768px) {
-            .logo {
-                font-size: 2rem;
+            .dashboard {
+                flex-direction: column;
             }
             
-            .banner-text h2 {
-                font-size: 2rem;
-            }
-            
-            .banner-text p {
-                font-size: 1rem;
-            }
-            
-            nav a {
-                margin: 5px;
-                font-size: 1rem;
+            .card {
+                width: 100%;
             }
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1 class="logo">SPOOKY HAVEN</h1>
-        <p class="tagline">Your one-stop shop for all things Halloween!</p>
-    </header>
-    
-    <nav>
-        <a href="#home">Home</a>
-        <a href="#costumes">Costumes</a>
-        <a href="#decor">Decorations</a>
-        <a href="#props">Props</a>
-        <a href="#sale">Sale Items</a>
-        <a href="#contact">Contact</a>
-    </nav>
-    
     <div class="container">
-        <section id="home">
-            <div class="banner">
-                <div class="banner-text">
-                    <h2>BOO-tiful Halloween Deals!</h2>
-                    <p>Get 20% off on all orders over $50. Use code: SPOOKY20</p>
-                    <a href="#sale" class="btn">Shop Now</a>
-                </div>
-            </div>
-        </section>
+        <header>
+            <h1>Monthly Fee Collection System</h1>
+            <p>Efficient and secure payment processing</p>
+        </header>
         
-        <section id="featured">
-            <h2 class="section-title">Featured Products</h2>
-            <div class="products">
-                <div class="product-card">
-                    <img src="https://images.unsplash.com/photo-1572860177020-8449537a7fbd?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Animated Skeleton" class="product-image">
-                    <div class="product-info">
-                        <h3 class="product-title">Animated Life-Size Skeleton</h3>
-                        <p class="product-description">Motion-activated skeleton with terrifying movements and sounds</p>
-                        <p class="product-price">$89.99</p>
-                        <a href="#" class="btn">Add to Cart</a>
-                    </div>
-                </div>
-                
-                <div class="product-card">
-                    <img src="https://images.unsplash.com/photo-1505673542670-a5e3b71840a0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Witch Costume" class="product-image">
-                    <div class="product-info">
-                        <h3 class="product-title">Deluxe Witch Costume</h3>
-                        <p class="product-description">Complete witch outfit with hat, dress, and broomstick</p>
-                        <p class="product-price">$49.99</p>
-                        <a href="#" class="btn">Add to Cart</a>
-                    </div>
-                </div>
-                
-                <div class="product-card">
-                    <img src="https://images.unsplash.com/photo-1531058020387-3be344556be6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Pumpkin Carving Kit" class="product-image">
-                    <div class="product-info">
-                        <h3 class="product-title">Professional Pumpkin Carving Kit</h3>
-                        <p class="product-description">Everything you need to create amazing jack-o-lanterns</p>
-                        <p class="product-price">$24.99</p>
-                        <a href="#" class="btn">Add to Cart</a>
-                    </div>
-                </div>
-                
-                <div class="product-card">
-                    <img src="https://images.unsplash.com/photo-1571091718767-18b5b1457add?ixlib=rb-1.2.1&auto=format&fit=crop&w=1352&q=80" alt="Fog Machine" class="product-image">
-                    <div class="product-info">
-                        <h3 class="product-title">Professional Fog Machine</h3>
-                        <p class="product-description">Creates thick, eerie fog for your haunted house</p>
-                        <p class="product-price">$79.99</p>
-                        <a href="#" class="btn">Add to Cart</a>
-                    </div>
-                </div>
+        <div class="dashboard">
+            <div class="card">
+                <h2>Total Collected</h2>
+                <p class="stat">$12,450.00</p>
+                <p>This month</p>
             </div>
-        </section>
+            
+            <div class="card">
+                <h2>Pending Payments</h2>
+                <p class="stat">$3,200.00</p>
+                <p>From 15 members</p>
+            </div>
+            
+            <div class="card">
+                <h2>Active Members</h2>
+                <p class="stat">87</p>
+                <p>Currently enrolled</p>
+            </div>
+        </div>
         
-        <section id="costumes">
-            <h2 class="section-title">Costumes</h2>
-            <div class="products">
-                <div class="product-card">
-                    <img src="https://images.unsplash.com/photo-1531058020387-3be344556be6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Zombie Costume" class="product-image">
-                    <div class="product-info">
-                        <h3 class="product-title">Ultimate Zombie Costume</h3>
-                        <p class="product-description">Complete with realistic wounds and blood effects</p>
-                        <p class="product-price">$59.99</p>
-                        <a href="#" class="btn">Add to Cart</a>
-                    </div>
+        <div class="form-container">
+            <h2>Collect Monthly Fee</h2>
+            <form id="feeForm">
+                <div class="form-group">
+                    <label for="memberId">Member ID</label>
+                    <input type="text" id="memberId" placeholder="Enter member ID" required>
                 </div>
                 
-                <div class="product-card">
-                    <img src="https://images.unsplash.com/photo-1572860177020-8449537a7fbd?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Vampire Costume" class="product-image">
-                    <div class="product-info">
-                        <h3 class="product-title">Elegant Vampire Costume</h3>
-                        <p class="product-description">Classic vampire outfit with cape and fangs</p>
-                        <p class="product-price">$54.99</p>
-                        <a href="#" class="btn">Add to Cart</a>
-                    </div>
+                <div class="form-group">
+                    <label for="memberName">Member Name</label>
+                    <input type="text" id="memberName" placeholder="Enter member name" required>
                 </div>
-            </div>
-            <div style="text-align: center; margin-top: 20px;">
-                <a href="#costumes" class="btn btn-outline">View All Costumes</a>
-            </div>
-        </section>
+                
+                <div class="form-group">
+                    <label for="month">Month</label>
+                    <select id="month" required>
+                        <option value="">Select month</option>
+                        <option value="January">January</option>
+                        <option value="February">February</option>
+                        <option value="March">March</option>
+                        <option value="April">April</option>
+                        <option value="May">May</option>
+                        <option value="June">June</option>
+                        <option value="July">July</option>
+                        <option value="August">August</option>
+                        <option value="September">September</option>
+                        <option value="October">October</option>
+                        <option value="November">November</option>
+                        <option value="December">December</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="year">Year</label>
+                    <input type="number" id="year" min="2020" max="2030" value="2023" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="amount">Amount ($)</label>
+                    <input type="number" id="amount" min="0" step="0.01" placeholder="Enter amount" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="paymentMethod">Payment Method</label>
+                    <select id="paymentMethod" required>
+                        <option value="">Select payment method</option>
+                        <option value="Cash">Cash</option>
+                        <option value="Credit Card">Credit Card</option>
+                        <option value="Bank Transfer">Bank Transfer</option>
+                        <option value="Mobile Payment">Mobile Payment</option>
+                        <option value="Check">Check</option>
+                    </select>
+                </div>
+                
+                <button type="submit">Record Payment</button>
+            </form>
+        </div>
         
-        <section id="decor">
-            <h2 class="section-title">Decorations</h2>
-            <div class="products">
-                <div class="product-card">
-                    <img src="https://images.unsplash.com/photo-1508847154043-be5407fcaa5a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Light-Up Tombstones" class="product-image">
-                    <div class="product-info">
-                        <h3 class="product-title">Light-Up Tombstones Set</h3>
-                        <p class="product-description">Set of 3 realistic-looking tombstones with LED lighting</p>
-                        <p class="product-price">$69.99</p>
-                        <a href="#" class="btn">Add to Cart</a>
-                    </div>
-                </div>
-                
-                <div class="product-card">
-                    <img src="https://images.unsplash.com/photo-1505635552518-3448e113a997?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Hanging Ghosts" class="product-image">
-                    <div class="product-info">
-                        <h3 class="product-title">Floating Ghost Set</h3>
-                        <p class="product-description">Set of 5 realistic floating ghosts with LED eyes</p>
-                        <p class="product-price">$39.99</p>
-                        <a href="#" class="btn">Add to Cart</a>
-                    </div>
-                </div>
-            </div>
-            <div style="text-align: center; margin-top: 20px;">
-                <a href="#decor" class="btn btn-outline">View All Decorations</a>
-            </div>
-        </section>
+        <div class="form-container">
+            <h2>Recent Payments</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Member ID</th>
+                        <th>Name</th>
+                        <th>Month</th>
+                        <th>Amount</th>
+                        <th>Payment Method</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>MEM1001</td>
+                        <td>John Smith</td>
+                        <td>March 2023</td>
+                        <td>$150.00</td>
+                        <td>Credit Card</td>
+                        <td>03/15/2023</td>
+                        <td class="status-paid">Paid</td>
+                    </tr>
+                    <tr>
+                        <td>MEM1002</td>
+                        <td>Sarah Johnson</td>
+                        <td>March 2023</td>
+                        <td>$150.00</td>
+                        <td>Bank Transfer</td>
+                        <td>03/10/2023</td>
+                        <td class="status-paid">Paid</td>
+                    </tr>
+                    <tr>
+                        <td>MEM1003</td>
+                        <td>Michael Brown</td>
+                        <td>March 2023</td>
+                        <td>$150.00</td>
+                        <td>Cash</td>
+                        <td>03/05/2023</td>
+                        <td class="status-paid">Paid</td>
+                    </tr>
+                    <tr>
+                        <td>MEM1004</td>
+                        <td>Emily Davis</td>
+                        <td>March 2023</td>
+                        <td>$150.00</td>
+                        <td>Mobile Payment</td>
+                        <td>03/18/2023</td>
+                        <td class="status-pending">Pending</td>
+                    </tr>
+                    <tr>
+                        <td>MEM1005</td>
+                        <td>Robert Wilson</td>
+                        <td>March 2023</td>
+                        <td>$150.00</td>
+                        <td>Check</td>
+                        <td>03/20/2023</td>
+                        <td class="status-pending">Pending</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <footer>
+            <p>&copy; 2023 Monthly Fee Collection System. All rights reserved.</p>
+        </footer>
     </div>
     
-    <footer>
-        <div class="social-links">
-            <a href="#"><i class="fab fa-facebook"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-pinterest"></i></a>
-        </div>
-        <p>&copy; 2023 Spooky Haven. All rights reserved.</p>
-        <p>123 Horror Lane, Transylvania, TN 37000 | (666) 666-6666</p>
-    </footer>
-    
-    <!-- Font Awesome for icons -->
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script>
+        // Basic form handling
+        document.getElementById('feeForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const memberId = document.getElementById('memberId').value;
+            const memberName = document.getElementById('memberName').value;
+            const month = document.getElementById('month').value;
+            const year = document.getElementById('year').value;
+            const amount = document.getElementById('amount').value;
+            const paymentMethod = document.getElementById('paymentMethod').value;
+            
+            // In a real application, you would send this data to a server
+            console.log('Payment recorded:', {
+                memberId,
+                memberName,
+                month,
+                year,
+                amount,
+                paymentMethod
+            });
+            
+            // Show success message
+            alert(`Payment of $${amount} for ${month} ${year} recorded successfully for ${memberName}!`);
+            
+            // Reset form
+            this.reset();
+            document.getElementById('year').value = '2023';
+        });
+    </script>
 </body>
-  </html>
+</html>
