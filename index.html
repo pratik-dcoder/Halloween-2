@@ -3,342 +3,241 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Monthly Fee Collection System</title>
+    <title>Multiplayer Ludo Game</title>
     <style>
-        * {
-            box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
         }
         
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #f5f5f5;
+        .game-container {
+            position: relative;
+            width: 600px;
+            height: 600px;
+            margin: 20px auto;
+        }
+        
+        .board {
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .center-square {
+            position: absolute;
+            width: 40%;
+            height: 40%;
+            background-color: #ffeb3b;
+            top: 30%;
+            left: 30%;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
             color: #333;
         }
         
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
+        .home {
+            position: absolute;
+            width: 20%;
+            height: 20%;
+            border-radius: 50%;
         }
         
-        header {
-            background-color: #2c3e50;
-            color: white;
-            padding: 20px 0;
-            text-align: center;
-            margin-bottom: 30px;
-            border-radius: 5px;
+        .home-red {
+            top: 5%;
+            left: 5%;
+            background-color: #f44336;
         }
         
-        h1 {
-            margin: 0;
+        .home-green {
+            top: 5%;
+            right: 5%;
+            background-color: #4caf50;
         }
         
-        .dashboard {
+        .home-yellow {
+            bottom: 5%;
+            left: 5%;
+            background-color: #ffeb3b;
+        }
+        
+        .home-blue {
+            bottom: 5%;
+            right: 5%;
+            background-color: #2196f3;
+        }
+        
+        .path {
+            position: absolute;
+            background-color: #fff;
+            border: 2px solid #333;
+        }
+        
+        .piece {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+        
+        .piece.red {
+            background-color: #f44336;
+            border: 2px solid #b71c1c;
+        }
+        
+        .piece.green {
+            background-color: #4caf50;
+            border: 2px solid #1b5e20;
+        }
+        
+        .piece.yellow {
+            background-color: #ffeb3b;
+            border: 2px solid #f57f17;
+        }
+        
+        .piece.blue {
+            background-color: #2196f3;
+            border: 2px solid #0d47a1;
+        }
+        
+        .dice-container {
+            margin: 20px;
             display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            margin-bottom: 30px;
+            flex-direction: column;
+            align-items: center;
         }
         
-        .card {
+        .dice {
+            width: 60px;
+            height: 60px;
             background-color: white;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            padding: 20px;
-            flex: 1;
-            min-width: 250px;
-        }
-        
-        .card h2 {
-            margin-top: 0;
-            color: #2c3e50;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 10px;
-        }
-        
-        .stat {
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             font-size: 24px;
             font-weight: bold;
-            color: #3498db;
-        }
-        
-        .form-container {
-            background-color: white;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            padding: 20px;
-            margin-bottom: 30px;
-        }
-        
-        .form-group {
-            margin-bottom: 15px;
-        }
-        
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        
-        input, select {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 16px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            margin-bottom: 10px;
         }
         
         button {
-            background-color: #3498db;
+            padding: 10px 20px;
+            background-color: #4caf50;
             color: white;
             border: none;
-            padding: 12px 20px;
-            border-radius: 4px;
+            border-radius: 5px;
             cursor: pointer;
             font-size: 16px;
-            transition: background-color 0.3s;
         }
         
         button:hover {
-            background-color: #2980b9;
+            background-color: #388e3c;
         }
         
-        table {
+        .player-info {
+            display: flex;
+            justify-content: space-around;
             width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
+            margin-bottom: 20px;
         }
         
-        th, td {
-            padding: 12px 15px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-        
-        th {
-            background-color: #2c3e50;
-            color: white;
-        }
-        
-        tr:hover {
-            background-color: #f5f5f5;
-        }
-        
-        .status-paid {
-            color: #27ae60;
+        .player {
+            padding: 10px 20px;
+            border-radius: 5px;
             font-weight: bold;
         }
         
-        .status-pending {
-            color: #e74c3c;
-            font-weight: bold;
-        }
-        
-        footer {
-            text-align: center;
-            margin-top: 30px;
-            padding: 20px;
-            color: #7f8c8d;
-            font-size: 14px;
-        }
-        
-        @media (max-width: 768px) {
-            .dashboard {
-                flex-direction: column;
-            }
-            
-            .card {
-                width: 100%;
-            }
+        .active {
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Monthly Fee Collection System</h1>
-            <p>Efficient and secure payment processing</p>
-        </header>
-        
-        <div class="dashboard">
-            <div class="card">
-                <h2>Total Collected</h2>
-                <p class="stat">$12,450.00</p>
-                <p>This month</p>
-            </div>
-            
-            <div class="card">
-                <h2>Pending Payments</h2>
-                <p class="stat">$3,200.00</p>
-                <p>From 15 members</p>
-            </div>
-            
-            <div class="card">
-                <h2>Active Members</h2>
-                <p class="stat">87</p>
-                <p>Currently enrolled</p>
-            </div>
-        </div>
-        
-        <div class="form-container">
-            <h2>Collect Monthly Fee</h2>
-            <form id="feeForm">
-                <div class="form-group">
-                    <label for="memberId">Member ID</label>
-                    <input type="text" id="memberId" placeholder="Enter member ID" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="memberName">Member Name</label>
-                    <input type="text" id="memberName" placeholder="Enter member name" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="month">Month</label>
-                    <select id="month" required>
-                        <option value="">Select month</option>
-                        <option value="January">January</option>
-                        <option value="February">February</option>
-                        <option value="March">March</option>
-                        <option value="April">April</option>
-                        <option value="May">May</option>
-                        <option value="June">June</option>
-                        <option value="July">July</option>
-                        <option value="August">August</option>
-                        <option value="September">September</option>
-                        <option value="October">October</option>
-                        <option value="November">November</option>
-                        <option value="December">December</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="year">Year</label>
-                    <input type="number" id="year" min="2020" max="2030" value="2023" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="amount">Amount ($)</label>
-                    <input type="number" id="amount" min="0" step="0.01" placeholder="Enter amount" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="paymentMethod">Payment Method</label>
-                    <select id="paymentMethod" required>
-                        <option value="">Select payment method</option>
-                        <option value="Cash">Cash</option>
-                        <option value="Credit Card">Credit Card</option>
-                        <option value="Bank Transfer">Bank Transfer</option>
-                        <option value="Mobile Payment">Mobile Payment</option>
-                        <option value="Check">Check</option>
-                    </select>
-                </div>
-                
-                <button type="submit">Record Payment</button>
-            </form>
-        </div>
-        
-        <div class="form-container">
-            <h2>Recent Payments</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Member ID</th>
-                        <th>Name</th>
-                        <th>Month</th>
-                        <th>Amount</th>
-                        <th>Payment Method</th>
-                        <th>Date</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>MEM1001</td>
-                        <td>John Smith</td>
-                        <td>March 2023</td>
-                        <td>$150.00</td>
-                        <td>Credit Card</td>
-                        <td>03/15/2023</td>
-                        <td class="status-paid">Paid</td>
-                    </tr>
-                    <tr>
-                        <td>MEM1002</td>
-                        <td>Sarah Johnson</td>
-                        <td>March 2023</td>
-                        <td>$150.00</td>
-                        <td>Bank Transfer</td>
-                        <td>03/10/2023</td>
-                        <td class="status-paid">Paid</td>
-                    </tr>
-                    <tr>
-                        <td>MEM1003</td>
-                        <td>Michael Brown</td>
-                        <td>March 2023</td>
-                        <td>$150.00</td>
-                        <td>Cash</td>
-                        <td>03/05/2023</td>
-                        <td class="status-paid">Paid</td>
-                    </tr>
-                    <tr>
-                        <td>MEM1004</td>
-                        <td>Emily Davis</td>
-                        <td>March 2023</td>
-                        <td>$150.00</td>
-                        <td>Mobile Payment</td>
-                        <td>03/18/2023</td>
-                        <td class="status-pending">Pending</td>
-                    </tr>
-                    <tr>
-                        <td>MEM1005</td>
-                        <td>Robert Wilson</td>
-                        <td>March 2023</td>
-                        <td>$150.00</td>
-                        <td>Check</td>
-                        <td>03/20/2023</td>
-                        <td class="status-pending">Pending</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        
-        <footer>
-            <p>&copy; 2023 Monthly Fee Collection System. All rights reserved.</p>
-        </footer>
+    <h1>Multiplayer Ludo Game</h1>
+    
+    <div class="player-info">
+        <div class="player red active" id="player1">Player 1 (Red)</div>
+        <div class="player green" id="player2">Player 2 (Green)</div>
+        <div class="player yellow" id="player3">Player 3 (Yellow)</div>
+        <div class="player blue" id="player4">Player 4 (Blue)</div>
     </div>
     
+    <div class="game-container">
+        <div class="board">
+            <!-- Center of the board -->
+            <div class="center-square">LUDO</div>
+            
+            <!-- Player homes -->
+            <div class="home home-red"></div>
+            <div class="home home-green"></div>
+            <div class="home home-yellow"></div>
+            <div class="home home-blue"></div>
+            
+            <!-- Game paths would be drawn here -->
+            
+            <!-- Game pieces -->
+            <div class="piece red" id="red1" style="top: 15%; left: 15%;"></div>
+            <div class="piece red" id="red2" style="top: 15%; left: 25%;"></div>
+            <div class="piece red" id="red3" style="top: 25%; left: 15%;"></div>
+            <div class="piece red" id="red4" style="top: 25%; left: 25%;"></div>
+            
+            <div class="piece green" id="green1" style="top: 15%; right: 15%;"></div>
+            <div class="piece green" id="green2" style="top: 15%; right: 25%;"></div>
+            <div class="piece green" id="green3" style="top: 25%; right: 15%;"></div>
+            <div class="piece green" id="green4" style="top: 25%; right: 25%;"></div>
+            
+            <div class="piece yellow" id="yellow1" style="bottom: 15%; left: 15%;"></div>
+            <div class="piece yellow" id="yellow2" style="bottom: 15%; left: 25%;"></div>
+            <div class="piece yellow" id="yellow3" style="bottom: 25%; left: 15%;"></div>
+            <div class="piece yellow" id="yellow4" style="bottom: 25%; left: 25%;"></div>
+            
+            <div class="piece blue" id="blue1" style="bottom: 15%; right: 15%;"></div>
+            <div class="piece blue" id="blue2" style="bottom: 15%; right: 25%;"></div>
+            <div class="piece blue" id="blue3" style="bottom: 25%; right: 15%;"></div>
+            <div class="piece blue" id="blue4" style="bottom: 25%; right: 25%;"></div>
+        </div>
+    </div>
+    
+    <div class="dice-container">
+        <div class="dice" id="dice">1</div>
+        <button id="roll-btn">Roll Dice</button>
+    </div>
+    
+    <div id="game-message">Waiting for player 1 to roll...</div>
+    
     <script>
-        // Basic form handling
-        document.getElementById('feeForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+        // Basic game logic would go here
+        document.getElementById('roll-btn').addEventListener('click', function() {
+            const diceValue = Math.floor(Math.random() * 6) + 1;
+            document.getElementById('dice').textContent = diceValue;
+            document.getElementById('game-message').textContent = `You rolled a ${diceValue}!`;
             
-            // Get form values
-            const memberId = document.getElementById('memberId').value;
-            const memberName = document.getElementById('memberName').value;
-            const month = document.getElementById('month').value;
-            const year = document.getElementById('year').value;
-            const amount = document.getElementById('amount').value;
-            const paymentMethod = document.getElementById('paymentMethod').value;
-            
-            // In a real application, you would send this data to a server
-            console.log('Payment recorded:', {
-                memberId,
-                memberName,
-                month,
-                year,
-                amount,
-                paymentMethod
+            // In a real game, you would handle piece movement here
+            // and communicate with other players via WebSockets
+        });
+        
+        // Piece click handlers
+        document.querySelectorAll('.piece').forEach(piece => {
+            piece.addEventListener('click', function() {
+                // In a real game, this would move the piece if it's the player's turn
+                console.log(`Clicked ${this.id}`);
             });
-            
-            // Show success message
-            alert(`Payment of $${amount} for ${month} ${year} recorded successfully for ${memberName}!`);
-            
-            // Reset form
-            this.reset();
-            document.getElementById('year').value = '2023';
         });
     </script>
 </body>
